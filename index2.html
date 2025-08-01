@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<title>Aniversário - Página 2</title>
+<style>
+/* style2.css embutido */
+
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+  height: 100%;
+  background: linear-gradient(135deg, #38003c, #9a0067);
+  color: #f9d1e7;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.container {
+  max-width: 480px;
+  margin: auto;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin-top: 1rem;
+  animation: sparkleEffect 2.5s ease-in-out infinite;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin: 0.3rem 0 1.6rem;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.gallery {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+
+.img-wrapper {
+  min-width: 180px;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(255, 0, 150, 0.8);
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.img-wrapper:hover {
+  transform: scale(1.07) rotate(2deg);
+}
+
+.img-wrapper img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 8px #ff3b8f);
+  border-radius: 18px;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+button {
+  background: linear-gradient(135deg, #cc00aa, #870065);
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  box-shadow: 0 10px 28px -6px rgba(200, 0, 170, 0.85);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #e000c4, #aa0090);
+  transform: scale(1.1);
+}
+
+footer {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  padding-bottom: 0.8rem;
+  user-select: none;
+}
+
+/* animação do título brilhante */
+@keyframes sparkleEffect {
+  0%, 100% {
+    text-shadow:
+      0 0 10px #ff7cba,
+      0 0 25px #ff3bb8,
+      0 0 40px #ff12a3;
+  }
+  50% {
+    text-shadow:
+      0 0 20px #ffb3d1,
+      0 0 45px #ff69b4,
+      0 0 70px #ff3799;
+  }
+}
+
+/* fundo canvas atrás */
+.background-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title sparkle">Galeria de Momentos</h1>
+      <p class="subtitle">Fotos cheias de amor e lembranças.</p>
+    </header>
+
+    <section class="gallery">
+      <div class="img-wrapper">
+        <!-- COLOQUE AQUI A IMAGEM 1 -->
+        <img src="Imagem do WhatsApp de 2025-08-01 à(s) 17.42.11_48c219de.jpg"
+      </div>
+      <div class="img-wrapper">
+        <!-- COLOQUE AQUI A IMAGEM 2 -->
+        <img src="Imagem do WhatsApp de 2025-08-01 à(s) 17.42.11_bfb6db03.jpg" alt="Foto 2" />
+      </div>
+    </section>
+
+    <nav class="nav-buttons">
+      <button id="prevBtn">← Voltar</button>
+      <button id="nextBtn">Próxima →</button>
+    </nav>
+
+    <footer>
+      <small>Memórias eternas feitas com carinho.</small>
+    </footer>
+
+    <canvas id="canvas2" class="background-canvas"></canvas>
+  </div>
+
+<script>
+  // Efeito estrelas piscando no fundo (canvas) estilo 2
+  const canvas2 = document.getElementById('canvas2');
+  const ctx2 = canvas2.getContext('2d');
+  let w2, h2;
+  let stars = [];
+
+  function resize2() {
+    w2 = window.innerWidth;
+    h2 = window.innerHeight;
+    canvas2.width = w2;
+    canvas2.height = h2;
+  }
+  window.addEventListener('resize', resize2);
+  resize2();
+
+  class Star {
+    constructor() {
+      this.x = Math.random()*w2;
+      this.y = Math.random()*h2;
+      this.radius = Math.random()*1.2 + 0.3;
+      this.alpha = Math.random();
+      this.alphaChange = 0.01 + Math.random()*0.015;
+    }
+    draw() {
+      ctx2.beginPath();
+      ctx2.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+      ctx2.fillStyle = `rgba(255,182,193,${this.alpha})`;
+      ctx2.shadowColor = "rgba(255,182,193,0.9)";
+      ctx2.shadowBlur = 4;
+      ctx2.fill();
+    }
+    update() {
+      this.alpha += this.alphaChange;
+      if (this.alpha <= 0 || this.alpha >= 1) {
+        this.alphaChange *= -1;
+      }
+    }
+  }
+
+  function initStars() {
+    stars = [];
+    for(let i=0; i<120; i++) {
+      stars.push(new Star());
+    }
+  }
+  function animateStars() {
+    ctx2.clearRect(0,0,w2,h2);
+    stars.forEach(star => {
+      star.update();
+      star.draw();
+    });
+    requestAnimationFrame(animateStars);
+  }
+  initStars();
+  animateStars();
+
+  // Navegação entre abas
+  const prevBtn2 = document.getElementById('prevBtn');
+  const nextBtn2 = document.getElementById('nextBtn');
+
+  prevBtn2.addEventListener('click', () => {
+    window.location.href = 'index.html';
+  });
+  nextBtn2.addEventListener('click', () => {
+    window.location.href = 'index3.html';
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Aniversário - Página 3</title>
+  <style>
+    /* style3.css embutido */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      background: linear-gradient(135deg, #7a0049, #bf00a9);
+      color: #ffe0ff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: auto;
+      padding: 1rem 1.25rem;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      margin-top: 1rem;
+      color: #ff78d1;
+      animation: bounce 2.5s ease-in-out infinite;
+      text-shadow: 0 0 10px #ff56bf, 0 0 25px #ff36b4;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      margin: 0.3rem 0 1.5rem;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 0 0.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .message {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 5px 15px rgba(255, 0, 150, 0.6);
+      color: #ffe6ff;
+      text-align: left;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      transition: transform 0.3s ease;
+    }
+
+    .message:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 0, 200, 0.9);
+    }
+
+    .message h2 {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #ffaceb;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      background: linear-gradient(135deg, #e100c3, #990079);
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 999px;
+      box-shadow: 0 10px 28px -5px rgba(255, 0, 180, 0.75);
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #ff34d2, #b1008c);
+      transform: scale(1.1);
+    }
+
+    footer {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      padding-bottom: 0.8rem;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    .background-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title">Palavras de Amor</h1>
+      <p class="subtitle">Mensagens especiais só para você, mãe.</p>
+    </header>
+
+    <section class="messages">
+      <div class="message">
+        <p>Mãe, você sempre foi minha inspiração e meu porto seguro. Obrigado por tudo que fez por mim.</p>
+      </div>
+      <div class="message">
+        <p>Seu carinho e sua força moldaram quem sou. Te amo mais do que palavras podem dizer.</p>
+      </div>
+      <div class="message">
+        <p>Hoje celebramos a mulher incrível que é o coração da nossa casa. Feliz aniversário com muito amor!</p>
+      </div>
+    </section>
+
+    <nav class="nav-buttons">
+      <button id="prevBtn">← Voltar</button>
+      <button id="nextBtn" disabled>Fim</button>
+    </nav>
+
+    <footer>
+      <small>Com amor, de todos nós. 🎉</small>
+    </footer>
+
+    <canvas id="canvas3" class="background-canvas"></canvas>
+  </div>
+
+  <script>
+    // Partículas flutuando estilo pétalas brilhantes
+    const canvas3 = document.getElementById('canvas3');
+    const ctx3 = canvas3.getContext('2d');
+    let w3, h3;
+    let petals = [];
+
+    function resizeCanvas3() {
+      w3 = window.innerWidth;
+      h3 = window.innerHeight;
+      canvas3.width = w3;
+      canvas3.height = h3;
+    }
+
+    window.addEventListener('resize', resizeCanvas3);
+    resizeCanvas3();
+
+    class Petal {
+      constructor() {
+        this.x = Math.random() * w3;
+        this.y = Math.random() * h3;
+        this.radius = Math.random() * 1.8 + 0.5;
+        this.alpha = Math.random() * 0.6 + 0.3;
+        this.speedY = Math.random() * 0.5 + 0.2;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+      }
+
+      move() {
+        this.y += this.speedY;
+        this.x += this.speedX;
+        if (this.y > h3) this.y = 0;
+        if (this.x < 0) this.x = w3;
+        if (this.x > w3) this.x = 0;
+      }
+
+      draw() {
+        ctx3.beginPath();
+        ctx3.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx3.fillStyle = `rgba(255,192,203,${this.alpha})`;
+        ctx3.shadowColor = "rgba(255,105,180,0.8)";
+        ctx3.shadowBlur = 6;
+        ctx3.fill();
+      }
+    }
+
+    function initPetals() {
+      petals = [];
+      for (let i = 0; i < 100; i++) {
+        petals.push(new Petal());
+      }
+    }
+
+    function animatePetals() {
+      ctx3.clearRect(0, 0, w3, h3);
+      petals.forEach(p => {
+        p.move();
+        p.draw();
+      });
+      requestAnimationFrame(animatePetals);
+    }
+
+    initPetals();
+    animatePetals();
+
+    // Navegação
+    const prevBtn = document.getElementById('prevBtn');
+    prevBtn.addEventListener('click', () => {
+      window.location.href = 'index2.html';
+    });
+  </script>
+</body>
+</html>

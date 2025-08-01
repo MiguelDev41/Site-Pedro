@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<title>Aniversário - Página 1</title>
+<style>
+/* style1.css embutido */
+
+* {
+  margin: 0; padding: 0; box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+  height: 100%;
+  background: linear-gradient(135deg, #7f0036, #d3005b);
+  color: #fff1f8;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.container {
+  max-width: 480px;
+  margin: auto;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+.title {
+  font-size: 2.7rem;
+  margin-top: 1rem;
+  animation: glow 3s ease-in-out infinite;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  margin: 0.4rem 0 1.5rem;
+  font-weight: 600;
+  text-shadow: 0 0 15px #ff6fb3;
+}
+
+.content p {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  text-shadow: 0 0 8px #ff4a87;
+}
+
+.image-container {
+  margin: 1.75rem 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(255, 20, 90, 0.8);
+  animation: pulseImage 3s ease-in-out infinite;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 5px #ff2e7f);
+  transition: transform 0.6s ease;
+  border-radius: 20px;
+}
+
+.image-container img:hover {
+  transform: scale(1.05) rotate(2deg);
+  filter: drop-shadow(0 0 20px #ff3366);
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+button {
+  background: linear-gradient(135deg, #ff3466, #b10045);
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px -5px rgba(255, 0, 100, 0.8);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:disabled {
+  background: #700030;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ff5285, #d91865);
+  transform: scale(1.1);
+}
+
+footer {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  padding-bottom: 0.8rem;
+}
+
+/* animação do título glow */
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 12px #ff3c88, 0 0 30px #ff3366, 0 0 45px #ff005e;
+  }
+  50% {
+    text-shadow: 0 0 25px #ff5bb5, 0 0 50px #ff007f, 0 0 70px #ff00a3;
+  }
+}
+
+/* animação pulse da imagem */
+@keyframes pulseImage {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(255, 20, 90, 0.8);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 20px 60px rgba(255, 20, 120, 1);
+    transform: scale(1.03);
+  }
+}
+
+/* fundo canvas fica atrás */
+.background-canvas {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+</style>
+<title>Aniversário - Página 1</title>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 class="title glow">Feliz Aniversário, Mãe!</h1>
+      <p class="subtitle">Que seu dia seja iluminado de amor e alegria.</p>
+    </header>
+
+    <section class="content">
+      <p>Você é o coração da nossa família, uma fonte inesgotável de amor e cuidado.</p>
+      <p>Hoje celebramos a pessoa maravilhosa que você é.</p>
+
+      <div class="image-container">
+        <!-- COLOQUE AQUI A IMAGEM 1 -->
+        <img src="Imagem do WhatsApp de 2025-08-01 à(s) 17.42.11_48c219de.jpg" alt="Imagem 1 de aniversário" />
+      </div>
+    </section>
+
+    <nav class="nav-buttons">
+      <button id="prevBtn" disabled>← Voltar</button>
+      <button id="nextBtn">Próxima →</button>
+    </nav>
+
+    <footer>
+      <small>Feito com carinho para ela. ❤️</small>
+    </footer>
+
+    <canvas id="canvas1" class="background-canvas"></canvas>
+  </div>
+
+<script>
+  // Função animação particulas simples para fundo - estilo 1 (bolinhas rosas/vermelhas)
+  const canvas = document.getElementById('canvas1');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+
+  function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.radius = Math.random() * 2 + 1;
+      this.color = `rgba(255,${Math.floor(Math.random()*100+50)},${Math.floor(Math.random()*150+100)},0.7)`;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.5;
+    }
+    move() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > width) this.speedX = -this.speedX;
+      if (this.y < 0 || this.y > height) this.speedY = -this.speedY;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.fillStyle = this.color;
+      ctx.shadowColor = this.color;
+      ctx.shadowBlur = 4;
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i=0; i<80; i++) {
+      particles.push(new Particle());
+    }
+  }
+  function animate() {
+    ctx.clearRect(0,0,width,height);
+    particles.forEach(p => {
+      p.move();
+      p.draw();
+    });
+    requestAnimationFrame(animate);
+  }
+  initParticles();
+  animate();
+
+  // Navegação entre abas (index1.html, index2.html, index3.html)
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  prevBtn.addEventListener('click', () => {
+    // disabled porque não tem anterior na página 1
+  });
+  nextBtn.addEventListener('click', () => {
+    window.location.href = 'index2.html';
+  });
+</script>
+
+</body>
+</html>
