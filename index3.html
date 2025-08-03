@@ -7,44 +7,42 @@
   <meta name="description" content="Mensagens especiais para a mãe com animações suaves. Responsivo." />
   <style>
     :root {
-      --gradient: linear-gradient(135deg,#7a0049,#bf00a9);
+      --bg: linear-gradient(135deg,#7a0049,#bf00a9);
       --text:#ffe0ff;
       --card-bg:rgba(255,255,255,0.08);
-      --radius:20px;
+      --radius:18px;
       --shadow:0 10px 28px -5px rgba(255,0,180,.75);
       --focus:0 0 0 3px rgba(230,150,230,.6);
     }
     *{box-sizing:border-box;margin:0;padding:0;font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;}
-    body,html{background:var(--gradient);color:var(--text);min-height:100%;overflow-x:hidden;}
-    .container{max-width:580px;margin:0 auto;display:flex;flex-direction:column;min-height:100vh;padding:1rem;position:relative;}
+    body,html{background:var(--bg);color:var(--text);min-height:100%;overflow-x:hidden;}
+    .wrap{max-width:580px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;padding:1rem;position:relative;}
     header{text-align:center;margin-top:1rem;}
-    .title{font-size:2.6rem;font-weight:900;margin:0;color:#ff78d1;animation:bounce 2.5s ease-in-out infinite;text-shadow:0 0 10px #ff56bf,0 0 25px #ff36b4;}
+    h1{font-size:2.6rem;margin:0;font-weight:900;color:#ff78d1;animation:bounce 2.5s infinite;text-shadow:0 0 10px #ff56bf,0 0 25px #ff36b4;}
     .subtitle{margin:.5rem 0 1rem;font-size:1.1rem;font-weight:600;opacity:.9;}
     .messages{flex:1;display:flex;flex-direction:column;gap:14px;overflow:auto;padding:4px 0;margin-bottom:4px;}
     .message{background:var(--card-bg);border-radius:20px;padding:1rem 1.25rem;box-shadow:0 5px 15px rgba(255,0,150,.6);transition:transform .25s;position:relative;}
-    .message:hover{transform:scale(1.03);}
+    .message:hover{transform:scale(1.02);}
     .message p{margin:0;font-size:1.1rem;line-height:1.4;}
     .nav{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px;}
-    button{background:linear-gradient(135deg,#e100c3,#990079);border:none;color:#fff;padding:.75rem 1.35rem;font-size:1rem;border-radius:999px;cursor:pointer;transition:transform .25s;box-shadow:var(--shadow);}
+    button{background:linear-gradient(135deg,#e100c3,#990079);border:none;color:#fff;padding:.75rem 1.35rem;font-size:1rem;border-radius:999px;cursor:pointer;transition:transform .2s;box-shadow:var(--shadow);}
     button:hover{transform:scale(1.05);}
     button:focus{outline:none;box-shadow:var(--focus);}
-    footer{font-size:.75rem;opacity:.7;text-align:center;margin-top:10px;}
-    canvas{position:fixed;top:0;left:0;z-index:1;pointer-events:none;width:100%;height:100%;}
+    footer{font-size:.75rem;text-align:center;opacity:.7;margin-top:10px;}
+    canvas{position:fixed;inset:0;pointer-events:none;z-index:1;}
     @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-    @media (min-width:768px){.title{font-size:2.9rem;}}
     @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;}}
   </style>
 </head>
 <body>
-  <canvas id="bg3" aria-hidden="true"></canvas>
-
-  <div class="container" aria-label="Palavras de amor">
+  <canvas id="canvas3" aria-hidden="true"></canvas>
+  <div class="wrap" aria-label="Palavras de amor">
     <header>
-      <h1 class="title">Palavras de Amor</h1>
+      <h1>Palavras de Amor</h1>
       <p class="subtitle">Mensagens especiais só para você, mãe.</p>
     </header>
 
-    <section class="messages" aria-label="Mensagens">
+    <section class="messages">
       <div class="message">
         <p><strong>Mãe,</strong> você sempre foi minha inspiração e meu porto seguro. Obrigado por tudo que fez por mim.</p>
       </div>
@@ -54,13 +52,13 @@
       <div class="message">
         <p>Hoje celebramos a mulher incrível que é o coração da nossa casa. Feliz aniversário com muito amor!</p>
       </div>
-      <!-- Pode adicionar mais mensagens copiando este bloco: -->
+      <!-- mais mensagens: copiar esse bloco -->
       <!-- <div class="message"><p>Sua presença é luz. Obrigado por ser você.</p></div> -->
     </section>
 
     <div class="nav">
-      <button id="to2" aria-label="Voltar para página 2">← Voltar</button>
-      <button disabled aria-label="Fim">Fim</button>
+      <button id="to2">← Voltar</button>
+      <button disabled>Fim</button>
     </div>
 
     <footer>
@@ -69,8 +67,8 @@
   </div>
 
   <script>
-    // pétalas flutuantes de fundo
-    const canvas = document.getElementById('bg3');
+    // pétalas leves
+    const canvas = document.getElementById('canvas3');
     const ctx = canvas.getContext('2d');
     let W,H,petals=[];
     function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
