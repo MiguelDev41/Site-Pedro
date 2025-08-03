@@ -21,9 +21,23 @@
     h1{font-size:2.6rem;margin:0;font-weight:900;color:#ff78d1;animation:bounce 2.5s infinite;text-shadow:0 0 10px #ff56bf,0 0 25px #ff36b4;}
     .subtitle{margin:.5rem 0 1rem;font-size:1.1rem;font-weight:600;opacity:.9;}
     .messages{flex:1;display:flex;flex-direction:column;gap:14px;overflow:auto;padding:4px 0;margin-bottom:4px;}
-    .message{background:var(--card-bg);border-radius:20px;padding:1rem 1.25rem;box-shadow:0 5px 15px rgba(255,0,150,.6);transition:transform .25s;position:relative;}
-    .message:hover{transform:scale(1.02);}
-    .message p{margin:0;font-size:1.1rem;line-height:1.4;}
+    
+    /* Estilo do textão */
+    .big-message {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 10px 30px rgba(255,0,150,.6);
+      font-size: 1.25rem;
+      line-height: 1.6;
+      position: relative;
+      overflow:auto;
+      max-height: 60vh;
+      transition: transform .25s;
+    }
+    .big-message:hover { transform: scale(1.01); }
+    .big-message p { margin: 0; }
+
     .nav{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px;}
     button{background:linear-gradient(135deg,#e100c3,#990079);border:none;color:#fff;padding:.75rem 1.35rem;font-size:1rem;border-radius:999px;cursor:pointer;transition:transform .2s;box-shadow:var(--shadow);}
     button:hover{transform:scale(1.05);}
@@ -43,17 +57,12 @@
     </header>
 
     <section class="messages">
-      <div class="message">
-        <p><strong>Mãe,</strong> você sempre foi minha inspiração e meu porto seguro. Obrigado por tudo que fez por mim.</p>
+      <div class="big-message">
+        <p>
+          <strong>Mãe,</strong> você sempre foi minha inspiração e meu porto seguro. Obrigado por tudo que fez por mim. Seu carinho e sua força moldaram quem sou. Hoje celebramos a mulher incrível que é o coração da nossa casa. Feliz aniversário com muito amor! 
+          Sua presença é luz, acolhimento nos dias difíceis e alegria nos momentos simples. Te amo mais do que palavras podem dizer — e mesmo que eu tente escrever um textão, ainda faltariam frases para expressar o quanto sou grato por você. Obrigado por cada conselho, cada abraço apertado, cada risada compartilhada. Você é amor em forma de pessoa.
+        </p>
       </div>
-      <div class="message">
-        <p>Seu carinho e sua força moldaram quem sou. Te amo mais do que palavras podem dizer.</p>
-      </div>
-      <div class="message">
-        <p>Hoje celebramos a mulher incrível que é o coração da nossa casa. Feliz aniversário com muito amor!</p>
-      </div>
-      <!-- mais mensagens: copiar esse bloco -->
-      <!-- <div class="message"><p>Sua presença é luz. Obrigado por ser você.</p></div> -->
     </section>
 
     <div class="nav">
@@ -74,15 +83,45 @@
     function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
     window.addEventListener('resize',resize);
     resize();
-    class Petal{constructor(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1.5+0.5;this.alpha=Math.random()*0.6+0.3;this.vy=Math.random()*0.4+0.2;this.vx=(Math.random()-0.5)*0.3;}
-      move(){this.y+=this.vy;this.x+=this.vx;if(this.y>H)this.y=0;if(this.x<0)this.x=W;if(this.x>W)this.x=0;}
-      draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(255,192,203,${this.alpha})`;ctx.shadowColor="rgba(255,105,180,0.8)";ctx.shadowBlur=6;ctx.fill();}
+    class Petal{
+      constructor(){
+        this.x=Math.random()*W;
+        this.y=Math.random()*H;
+        this.r=Math.random()*1.5+0.5;
+        this.alpha=Math.random()*0.6+0.3;
+        this.vy=Math.random()*0.4+0.2;
+        this.vx=(Math.random()-0.5)*0.3;
+      }
+      move(){
+        this.y+=this.vy;
+        this.x+=this.vx;
+        if(this.y>H) this.y=0;
+        if(this.x<0) this.x=W;
+        if(this.x>W) this.x=0;
+      }
+      draw(){
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(255,192,203,${this.alpha})`;
+        ctx.shadowColor="rgba(255,105,180,0.8)";
+        ctx.shadowBlur=6;
+        ctx.fill();
+      }
     }
-    function init(){petals=[];for(let i=0;i<100;i++)petals.push(new Petal());}
-    function loop(){ctx.clearRect(0,0,W,H);petals.forEach(p=>{p.move();p.draw();});requestAnimationFrame(loop);}
+    function init(){
+      petals=[];
+      for(let i=0;i<100;i++) petals.push(new Petal());
+    }
+    function loop(){
+      ctx.clearRect(0,0,W,H);
+      petals.forEach(p=>{p.move();p.draw();});
+      requestAnimationFrame(loop);
+    }
     init();loop();
 
-    document.getElementById('to2')?.addEventListener('click',()=>{location.href='index2.html';});
+    document.getElementById('to2')?.addEventListener('click',()=>{
+      location.href='index2.html';
+    });
   </script>
 </body>
 </html>
