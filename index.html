@@ -1,247 +1,267 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-<title>Aniversário - Página 1</title>
-<style>
-/* style1.css embutido */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <title>Feliz Aniversário, Mãe!</title>
+  <meta name="description" content="Mensagem de aniversário com animações e foto. Responsivo para celular e desktop." />
+  <style>
+    :root {
+      --gradient: linear-gradient(135deg, #7f0036, #d3005b);
+      --radius: 20px;
+      --shadow: 0 20px 60px rgba(255, 0, 150, 0.3);
+      --focus: 0 0 0 3px rgba(255, 150, 220, 0.6);
+      --text: #ffe6ff;
+      --card-bg: rgba(255, 255, 255, 0.06);
+    }
 
-* {
-  margin: 0; padding: 0; box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
 
-body, html {
-  height: 100%;
-  background: linear-gradient(135deg, #7f0036, #d3005b);
-  color: #fff1f8;
-  overflow-x: hidden;
-  position: relative;
-}
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: var(--gradient);
+      color: var(--text);
+      min-height: 100%;
+      overflow-x: hidden;
+    }
 
-.container {
-  max-width: 480px;
-  margin: auto;
-  padding: 1rem 1.25rem;
-  text-align: center;
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  z-index: 2;
-}
+    .container {
+      max-width: 540px;
+      margin: 0 auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1rem 1rem;
+      position: relative;
+    }
 
-.title {
-  font-size: 2.7rem;
-  margin-top: 1rem;
-  animation: glow 3s ease-in-out infinite;
-}
+    header {
+      text-align: center;
+      margin-top: 1rem;
+    }
 
-.subtitle {
-  font-size: 1.25rem;
-  margin: 0.4rem 0 1.5rem;
-  font-weight: 600;
-  text-shadow: 0 0 15px #ff6fb3;
-}
+    .title {
+      font-size: 2.6rem;
+      margin: 0;
+      line-height: 1.1;
+      position: relative;
+      animation: glow 3s ease-in-out infinite;
+    }
 
-.content p {
-  font-size: 1.15rem;
-  margin-bottom: 1rem;
-  line-height: 1.4;
-  text-shadow: 0 0 8px #ff4a87;
-}
+    .subtitle {
+      margin: 0.5rem 0 1.25rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-shadow: 0 0 12px rgba(255, 111, 179, .8);
+    }
 
-.image-container {
-  margin: 1.75rem 0;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(255, 20, 90, 0.8);
-  animation: pulseImage 3s ease-in-out infinite;
-}
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
 
-.image-container img {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 0 5px #ff2e7f);
-  transition: transform 0.6s ease;
-  border-radius: 20px;
-}
+    .text-block p {
+      margin: 0 0 0.75rem;
+      font-size: 1.15rem;
+      line-height: 1.4;
+    }
 
-.image-container img:hover {
-  transform: scale(1.05) rotate(2deg);
-  filter: drop-shadow(0 0 20px #ff3366);
-}
+    .image-wrapper {
+      margin: 1rem 0;
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(255, 20, 140, 0.6);
+      transition: transform .35s;
+    }
 
-.nav-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
+    .image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 18px;
+      object-fit: cover;
+      filter: drop-shadow(0 0 15px rgba(255, 50, 120, .9));
+      transition: transform .4s;
+    }
 
-button {
-  background: linear-gradient(135deg, #ff3466, #b10045);
-  border: none;
-  color: white;
-  font-size: 1.1rem;
-  padding: 0.75rem 1.25rem;
-  border-radius: 999px;
-  box-shadow: 0 8px 24px -5px rgba(255, 0, 100, 0.8);
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
+    .image-wrapper:hover img {
+      transform: scale(1.04) rotate(1deg);
+    }
 
-button:disabled {
-  background: #700030;
-  cursor: not-allowed;
-  box-shadow: none;
-  opacity: 0.6;
-}
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      gap: 8px;
+    }
 
-button:hover:not(:disabled) {
-  background: linear-gradient(135deg, #ff5285, #d91865);
-  transform: scale(1.1);
-}
+    button {
+      background: linear-gradient(135deg, #ff5285, #d91865);
+      border: none;
+      color: #fff;
+      padding: .85rem 1.35rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform .25s;
+      box-shadow: 0 12px 36px rgba(255, 0, 150, .8);
+    }
 
-footer {
-  font-size: 0.8rem;
-  opacity: 0.7;
-  padding-bottom: 0.8rem;
-}
+    button:hover:not(:disabled) {
+      transform: scale(1.05);
+    }
 
-/* animação do título glow */
-@keyframes glow {
-  0%, 100% {
-    text-shadow: 0 0 12px #ff3c88, 0 0 30px #ff3366, 0 0 45px #ff005e;
-  }
-  50% {
-    text-shadow: 0 0 25px #ff5bb5, 0 0 50px #ff007f, 0 0 70px #ff00a3;
-  }
-}
+    button:focus {
+      outline: none;
+      box-shadow: var(--focus);
+    }
 
-/* animação pulse da imagem */
-@keyframes pulseImage {
-  0%, 100% {
-    box-shadow: 0 10px 30px rgba(255, 20, 90, 0.8);
-    transform: scale(1);
-  }
-  50% {
-    box-shadow: 0 20px 60px rgba(255, 20, 120, 1);
-    transform: scale(1.03);
-  }
-}
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
 
-/* fundo canvas fica atrás */
-.background-canvas {
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 1;
-  pointer-events: none;
-}
-</style>
-<title>Aniversário - Página 1</title>
+    .pager {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .3);
+      transition: background .25s;
+    }
+
+    .dot.active {
+      background: #ff78d1;
+    }
+
+    footer {
+      font-size: .75rem;
+      opacity: .7;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    /* Canvas background */
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    @keyframes glow {
+
+      0%,
+      100% {
+        text-shadow: 0 0 12px #ff3c88, 0 0 30px #ff3366, 0 0 45px #ff005e;
+      }
+
+      50% {
+        text-shadow: 0 0 25px #ff5bb5, 0 0 50px #ff007f, 0 0 70px #ff00a3;
+      }
+    }
+
+    @media (min-width:768px) {
+      .title {
+        font-size: 3rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <div class="container">
+  <canvas id="bg1" aria-hidden="true"></canvas>
+  <div class="container" aria-label="Página 1 - Mensagem principal">
     <header>
-      <h1 class="title glow">Feliz Aniversário, Mãe!</h1>
+      <h1 class="title">Feliz Aniversário, Mãe!</h1>
       <p class="subtitle">Que seu dia seja iluminado de amor e alegria.</p>
     </header>
 
-    <section class="content">
-      <p>Você é o coração da nossa família, uma fonte inesgotável de amor e cuidado.</p>
-      <p>Hoje celebramos a pessoa maravilhosa que você é.</p>
-
-      <div class="image-container">
-        <!-- COLOQUE AQUI A IMAGEM 1 -->
-        <img src="Imagem do WhatsApp de 2025-08-01 à(s) 17.42.11_48c219de.jpg" alt="Imagem 1 de aniversário" />
+    <div class="card" aria-label="Mensagem e foto">
+      <div class="text-block">
+        <p>Você é o coração da nossa família, uma fonte inesgotável de amor e cuidado.</p>
+        <p>Hoje celebramos a pessoa maravilhosa que você é.</p>
       </div>
-    </section>
+      <div class="image-wrapper" aria-label="Foto principal">
+        <!-- COLOQUE AQUI A IMAGEM 1 -->
+        <img src="Imagem do WhatsApp de 2025-08-01 à(s) 17.42.11_48c219de.jpg" alt="Foto de aniversário mãe"
+          loading="lazy" />
+      </div>
+      <!-- Se quiser adicionar outra imagem aqui, descomente e substitua -->
+      <!-- COLOQUE AQUI A IMAGEM 2 -->
+    </div>
 
-    <nav class="nav-buttons">
-      <button id="prevBtn" disabled>← Voltar</button>
-      <button id="nextBtn">Próxima →</button>
-    </nav>
+    <div class="nav">
+      <div class="pager" aria-label="Indicador de páginas">
+        <div class="dot active" aria-label="Página 1"></div>
+        <div class="dot" aria-label="Página 2"></div>
+        <div class="dot" aria-label="Página 3"></div>
+      </div>
+      <button id="to2" aria-label="Ir para página 2">Próxima →</button>
+    </div>
 
     <footer>
       <small>Feito com carinho para ela. ❤️</small>
     </footer>
-
-    <canvas id="canvas1" class="background-canvas"></canvas>
   </div>
 
-<script>
-  // Função animação particulas simples para fundo - estilo 1 (bolinhas rosas/vermelhas)
-  const canvas = document.getElementById('canvas1');
-  const ctx = canvas.getContext('2d');
-  let width, height;
-  let particles = [];
-
-  function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-  }
-  window.addEventListener('resize', resize);
-  resize();
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.radius = Math.random() * 2 + 1;
-      this.color = `rgba(255,${Math.floor(Math.random()*100+50)},${Math.floor(Math.random()*150+100)},0.7)`;
-      this.speedX = (Math.random() - 0.5) * 0.5;
-      this.speedY = (Math.random() - 0.5) * 0.5;
+  <script>
+    // fundo de partículas suaves
+    const canvas = document.getElementById('bg1');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+    window.addEventListener('resize', resize);
+    resize();
+    class P {
+      constructor() { this.x = Math.random() * w; this.y = Math.random() * h; this.r = Math.random() * 2 + 1; this.vx = (Math.random() - 0.5) * 0.4; this.vy = (Math.random() - 0.5) * 0.4; this.c = `rgba(255,${Math.floor(Math.random() * 80 + 100)},${Math.floor(Math.random() * 150 + 80)},0.5)`; }
+      move() {
+        this.x += this.vx; this.y += this.vy;
+        if (this.x < 0 || this.x > w) this.vx *= -1;
+        if (this.y < 0 || this.y > h) this.vy *= -1;
+      }
+      draw() { ctx.beginPath(); ctx.fillStyle = this.c; ctx.shadowColor = this.c; ctx.shadowBlur = 6; ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); ctx.fill(); }
     }
-    move() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      if (this.x < 0 || this.x > width) this.speedX = -this.speedX;
-      if (this.y < 0 || this.y > height) this.speedY = -this.speedY;
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.fillStyle = this.color;
-      ctx.shadowColor = this.color;
-      ctx.shadowBlur = 4;
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
+    function init() { particles = []; for (let i = 0; i < 90; i++)particles.push(new P()); }
+    function loop() { ctx.clearRect(0, 0, w, h); particles.forEach(p => { p.move(); p.draw(); }); requestAnimationFrame(loop); }
+    init(); loop();
 
-  function initParticles() {
-    particles = [];
-    for (let i=0; i<80; i++) {
-      particles.push(new Particle());
-    }
-  }
-  function animate() {
-    ctx.clearRect(0,0,width,height);
-    particles.forEach(p => {
-      p.move();
-      p.draw();
-    });
-    requestAnimationFrame(animate);
-  }
-  initParticles();
-  animate();
-
-  // Navegação entre abas (index1.html, index2.html, index3.html)
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-
-  prevBtn.addEventListener('click', () => {
-    // disabled porque não tem anterior na página 1
-  });
-  nextBtn.addEventListener('click', () => {
-    window.location.href = 'index2.html';
-  });
-</script>
-
+    document.getElementById('to2')?.addEventListener('click', () => { location.href = 'index2.html'; });
+  </script>
 </body>
+
 </html>
